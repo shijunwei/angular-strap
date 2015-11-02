@@ -269,13 +269,12 @@ angular.module('mgcrea.ngStrap.helpers.dateParser', [])
         var dateElements = Object.keys(regExpMap);
         var dateRegexParts = [];
 
-        console.log(formatParts);
-
-        formatParts.forEach(function (part) {
-          if (isFormatStringLiteral(part)) {
+        formatParts.forEach(function(part, index) {
+          if (!part && index > 0 && index < formatParts.length - 1) {
+            part = '\'';
+          } else if (isFormatStringLiteral(part)) {
             part = removeLiteralEscapeChars(part);
-          }
-          else {
+          } else {
             // Abstract replaces to avoid collisions
             for(var i = 0; i < dateElements.length; i++) {
               part = part.split(dateElements[i]).join('${' + i + '}');
@@ -288,7 +287,7 @@ angular.module('mgcrea.ngStrap.helpers.dateParser', [])
       }
 
       function isFormatStringLiteral(text) {
-        return text.indexOf('\'') == 0;
+        return text.indexOf('\'') === 0;
       }
 
       function removeLiteralEscapeChars(text) {
