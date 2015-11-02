@@ -269,6 +269,8 @@ angular.module('mgcrea.ngStrap.helpers.dateParser', [])
         var dateElements = Object.keys(regExpMap);
         var dateRegexParts = [];
 
+        console.log(formatParts);
+
         formatParts.forEach(function (part) {
           if (isFormatStringLiteral(part)) {
             part = removeLiteralEscapeChars(part);

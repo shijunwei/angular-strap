@@ -389,7 +389,7 @@ describe('dateParser', function () {
       ]);
     });
 
-    describe('fullDate format "EEEE, d MMMM y"', function() {
+    fdescribe('fullDate format "EEEE, d MMMM y"', function() {
       beforeEach(function() {
         parser = $dateParser({ format: "EEEE, d MMMM y" });
       });
@@ -398,13 +398,22 @@ describe('dateParser', function () {
       ]);
     });
 
-    describe('fullDate format "EEEE, d \'de\' MMMM \'de\' y" with literals', function() {
+    fdescribe('fullDate format "EEEE, d \'de\' MMMM \'de\' y" with literals', function() {
       beforeEach(function() {
         parser = $dateParser({ format: "EEEE, d 'de' MMMM 'de' y" });
       });
       generateTestCasesForParsing([
         {val:'Wednesday, 01 de January de 2014', expect: new Date(2014,0,1), reason:'full date with literals'},
         {val:'Wednesday, 01 January 2014', expect: false, reason:'full date does not include literals'}
+      ]);
+    });
+
+    fdescribe('format "H \'o\'\'clock\'" with escaped literal', function() {
+      beforeEach(function() {
+        parser = $dateParser({ format: "H 'o''clock'" });
+      });
+      generateTestCasesForParsing([
+        {val:'3 o\'clock', expect: new Date(1970,0,1,3,0,0), reason:'format string with escaped literal'}
       ]);
     });
 
